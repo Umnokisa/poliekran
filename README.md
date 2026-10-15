@@ -1,6 +1,6 @@
 <a name="english"></a>
 
-<p align="center"><img src="assets/icon.png" width="128" alt="Poliekran icon"></p>
+<p align="center"><img src="icon.png" width="128" alt="Poliekran icon"></p>
 
 # Poliekran
 
