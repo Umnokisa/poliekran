@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net462</TargetFramework>
+    <OutputType>Library</OutputType>
+    <LangVersion>latest</LangVersion>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <AssemblyName>Poliekran</AssemblyName>
+    <RootNamespace>Poliekran</RootNamespace>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <Nullable>disable</Nullable>
+    <DebugType>none</DebugType>
+
+    <Version>1.2.0</Version>
+    <!-- AssemblyVersion is part of the COM registration written by the installer: keep it fixed -->
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>$(Version).0</FileVersion>
+    <Product>Полиэкран</Product>
+    <AssemblyTitle>Полиэкран</AssemblyTitle>
+    <Company>Надежда &quot;Umnokisa&quot; Булочко</Company>
+    <Authors>Надежда &quot;Umnokisa&quot; Булочко</Authors>
+    <Copyright>Copyright (c) 2026 Надежда &quot;Umnokisa&quot; Булочко</Copyright>
+    <Description>Надстройка PowerPoint: разные презентации на разных мониторах</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\assets\app.ico" LogicalName="Poliekran.app.ico" />
+  </ItemGroup>
+</Project>
