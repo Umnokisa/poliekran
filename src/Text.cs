@@ -36,6 +36,10 @@ namespace Poliekran
         public static string Reload => S("Перезапускать показ, когда файл изменился", "Restart the show when the file changes");
         public static string AdvanceSlides => S("Слайды без времени смены листать через:", "Advance slides without timing after:");
         public static string StartFile => S("Запустить файл…", "Start file…");
+        public static string SyncWith => S("Синхронизировать с:", "Synchronize with:");
+        public static string SyncIndependent => S("Самостоятельный показ", "Independent show");
+        public static string FollowsMaster => S("следует за ведущим", "follows master");
+        public static string InvalidSyncMaster => S("Выбранный показ уже следует за другим ведущим.", "The selected show already follows another master.");
         public static string RefreshMonitors => S("Обновить мониторы", "Refresh monitors");
         public static string Previous => S("< Назад", "< Previous");
         public static string Next => S("Вперёд >", "Next >");

@@ -10,7 +10,7 @@ RequestExecutionLevel user
 !include "nsDialogs.nsh"
 
 !ifndef VER
-  !define VER "1.3.0"
+  !define VER "1.4.0"
 !endif
 !ifndef VER4
   !define VER4 "${VER}.0"

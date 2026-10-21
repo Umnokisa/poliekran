@@ -13,6 +13,7 @@ namespace Poliekran
         public Screen Scr;
         public bool Full, Reload;
         public int Sec;
+        public Show Master;
         public dynamic Pres, Win;
         public IntPtr Hwnd;
         public Guard G;
@@ -36,7 +37,7 @@ namespace Poliekran
 
     class ShowManager
     {
-        const int T = -1, F = 0, ppPointerArrow = 1, ppShowTypeSpeaker = 1, ppShowTypeWindow = 2, ppShowAll = 1, ppUseSlideTimings = 2, ppAlertsNone = 1;
+        const int T = -1, F = 0, ppPointerArrow = 1, ppShowTypeSpeaker = 1, ppShowTypeWindow = 2, ppShowAll = 1, ppManualAdvance = 1, ppUseSlideTimings = 2, ppAlertsNone = 1;
         const int MaxFails = 5, FailWindow = 60, RetryPause = 60;
         static readonly string TmpDir = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "Poliekran");
         dynamic app;
@@ -70,17 +71,19 @@ namespace Poliekran
 
         bool Blocked(Show sh) => busy || Shows.Any(x => x != sh && x.Win != null && x.Hwnd == IntPtr.Zero);
 
-        public Show Start(string path, Screen scr, bool full, int sec, bool reload)
+        public Show Start(string path, Screen scr, bool full, int sec, bool reload, Show master = null)
         {
             if (Blocked(null)) throw new InvalidOperationException(UiText.PreviousShowStarting);
-            L.W("Start " + path + " on " + scr.DeviceName + " " + scr.Bounds + (full ? " fullscreen" : " window") + " sec=" + sec + " reload=" + reload);
-            var sh = new Show { Path = path, Scr = scr, Full = full, Sec = sec, Reload = reload };
+            if (master != null && (!Shows.Contains(master) || master.Master != null))
+                throw new InvalidOperationException(UiText.InvalidSyncMaster);
+            L.W("Start " + path + " on " + scr.DeviceName + " " + scr.Bounds + (full ? " fullscreen" : " window") + " sec=" + sec + " reload=" + reload + (master == null ? "" : " master=" + master.Title));
+            var sh = new Show { Path = path, Scr = scr, Full = full, Sec = master == null ? sec : 0, Reload = reload, Master = master };
             try
             {
                 busy = true;
                 try { Fresh(sh); } finally { busy = false; }
                 Shows.Add(sh);
-                Launch(sh, 1);
+                Launch(sh, master == null ? 1 : Math.Max(1, Slide(master)));
             }
             catch (Exception ex)
             {
@@ -188,7 +191,7 @@ namespace Poliekran
                 ss.ShowScrollbar = F;
                 ss.LoopUntilStopped = T;
                 ss.RangeType = ppShowAll;
-                ss.AdvanceMode = ppUseSlideTimings;
+                ss.AdvanceMode = sh.Master == null ? ppUseSlideTimings : ppManualAdvance;
                 Drop(sh);
                 sh.Before = new HashSet<IntPtr>(W.Tops());
                 sh.Miss = 0;
@@ -204,7 +207,9 @@ namespace Poliekran
                     return;
                 }
                 if (slide > 1 && slide <= Count(sh)) { try { sh.Win.View.GotoSlide(slide); } catch (Exception ex) { L.E("GotoSlide", ex); } }
+                if (slide > 0 && slide <= Count(sh)) sh.Last = slide;
                 Pointer(sh);
+                if (sh.Master == null) SyncFollowers(sh, slide);
             }
             finally { sh.Pending = false; busy = false; launching = null; }
         }
@@ -288,8 +293,26 @@ namespace Poliekran
             }
             if (!W.IsWindow(sh.Hwnd)) return "window destroyed";
             int i = Slide(sh);
-            if (i > 0 && i != sh.Last) { sh.Last = i; Fire(); }
+            if (i > 0 && i != sh.Last)
+            {
+                sh.Last = i;
+                Fire();
+                if (sh.Master == null) SyncFollowers(sh, i);
+            }
             return null;
+        }
+
+        void SyncFollowers(Show master, int slide)
+        {
+            if (slide <= 0) return;
+            foreach (var follower in Shows.Where(x => x.Master == master).ToList())
+            {
+                if (follower.Pending || follower.Stopping || follower.Win == null) continue;
+                int target = slide <= Count(follower) ? slide : 1;
+                if (Slide(follower) == target) { follower.Last = target; continue; }
+                try { follower.Win.View.GotoSlide(target); follower.Last = target; }
+                catch (Exception ex) { L.W("Sync " + follower.Title + ": " + ex.Message); }
+            }
         }
 
         void Heartbeat()
@@ -441,13 +464,18 @@ namespace Poliekran
             try { return (int)sh.Pres.Slides.Count; } catch { return 0; }
         }
 
-        public void Next(Show sh) => Nav(sh, true);
-        public void Prev(Show sh) => Nav(sh, false);
+        public void Next(Show sh) => Nav(sh.Master ?? sh, true);
+        public void Prev(Show sh) => Nav(sh.Master ?? sh, false);
 
         void Nav(Show sh, bool fwd)
         {
             if (sh.Win == null) return;
-            try { if (fwd) sh.Win.View.Next(); else sh.Win.View.Previous(); return; }
+            try
+            {
+                if (fwd) sh.Win.View.Next(); else sh.Win.View.Previous();
+                SyncFollowers(sh, Slide(sh));
+                return;
+            }
             catch (Exception ex) { L.W("Nav via COM failed: " + ex.Message); }
             var h = sh.G?.Pane ?? IntPtr.Zero;
             if (h == IntPtr.Zero) h = sh.Hwnd;
@@ -475,6 +503,12 @@ namespace Poliekran
         }
 
         public void Stop(Show sh)
+        {
+            var group = Shows.Where(x => x == sh || x.Master == sh).ToList();
+            foreach (var item in group) StopOne(item);
+        }
+
+        void StopOne(Show sh)
         {
             L.W("Stop " + sh.Title);
             sh.Stopping = true;

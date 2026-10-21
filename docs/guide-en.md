@@ -1,6 +1,6 @@
 # Poliekran — User Guide
 
-Version 1.3. [Русская версия](guide-ru.md)
+Version 1.4. [Русская версия](guide-ru.md)
 
 Poliekran is an add-in for Microsoft PowerPoint. It runs several shows at once on different monitors of one PC: a presentation on one screen, an electronic timetable on another, something else on a third. The shows keep running while people work in other programs on the same computer.
 
@@ -17,7 +17,7 @@ No administrator rights are needed.
 ## 2. Installing
 
 1. Close PowerPoint.
-2. Run `Poliekran-1.3.0-setup.exe`.
+2. Run `Poliekran-1.4.0-setup.exe`.
 3. If Windows shows "Windows protected your PC", click **More info** → **Run anyway**. The installer has no digital signature, so Windows does not recognize it.
 4. Choose English in the installer. The wizard, its buttons and the final page will then be in English. You can tick **Launch PowerPoint** on the last page.
 
@@ -37,6 +37,7 @@ From top to bottom:
 |---|---|---|
 | (monitor list) | — | Picks the screen for the show. Lines look like “2: 1920×1080, position 1920,0”. The main monitor is marked “primary”. |
 | Full screen / Window | Full screen / Window | Show mode. Use Full screen. Window is a fallback and less reliable. |
+| Synchronize with | Synchronize with | Choose an independent show or a running master show. A follower follows the master's current slide and advances manually. |
 | Start file… | Start file… | Choose a presentation and start it on the selected monitor. |
 | Refresh monitors | Refresh monitors | Re-read the monitor list after connecting or disconnecting a screen. |
 | Advance slides without timing after | Advance slides without timing after | How long to keep a slide that has no timing of its own. Default 15 s. Do not advance waits for a manual click. |
@@ -64,6 +65,17 @@ You can close the control panel with the X button: the shows keep running. The s
 The show opens full screen on the chosen monitor. Repeat for the other monitors. The same file can run on several screens.
 
 A show always plays every slide in a loop. Your original file is never changed: the program works with a copy.
+
+### Synchronous shows
+
+To show different presentations in step—for example, English and Russian versions on separate monitors:
+
+1. Start the master presentation normally.
+2. Select another monitor and choose the master in **Synchronize with**.
+3. Click **Start file…** and choose the follower presentation.
+4. Repeat for other follower presentations if needed.
+
+The master controls the group. When its current slide changes, Poliekran moves every follower to the same slide. Followers use manual advance even if their source files contain automatic timings. If a follower has fewer slides than the master, it shows its first slide when the master's slide number is unavailable. Stopping the master also stops its followers.
 
 ## 6. Electronic timetables
 
@@ -125,7 +137,7 @@ If the timetable PC stands in a lobby and nobody comes near it:
 
 Close PowerPoint first. The program files, registry entries and the log are removed.
 
-For administrators: silent install `Poliekran-1.3.0-setup.exe /S`, silent uninstall `Poliekran-1.3.0-setup.exe /uninstall /S`. Exit codes: 0 success, 3 PowerPoint is running, 4 no .NET Framework 4.6.2, 5 the user folder path contains # or %.
+For administrators: silent install `Poliekran-1.4.0-setup.exe /S`, silent uninstall `Poliekran-1.4.0-setup.exe /uninstall /S`. Exit codes: 0 success, 3 PowerPoint is running, 4 no .NET Framework 4.6.2, 5 the user folder path contains # or %.
 
 ## 10. Troubleshooting
 

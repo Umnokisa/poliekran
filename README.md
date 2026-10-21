@@ -15,6 +15,7 @@ By itself, PowerPoint puts a full-screen show on one monitor and may close it wh
 ## Features
 
 - A different presentation on each monitor. The same file can also run on several screens.
+- Synchronous shows: choose one running show as the master and make other shows follow its slide changes. This is useful for different language versions on separate monitors.
 - Two modes: «Full screen» (a normal full-screen show) and «Window» (PowerPoint's windowed show, stretched over the entire monitor with its frame removed).
 - A show is not closed or minimized when focus moves to another application.
 - Shows can loop continuously. Slides without their own timing can advance automatically after 5–60 seconds, so a multi-page timetable keeps moving.
@@ -49,6 +50,8 @@ The uninstaller removes the files, the registry entries and the log.
 3. Choose how long slides without their own timing stay on screen. The default is 15 seconds, which suits information screens and timetables. For an ordinary talk with manually advanced slides, choose «do not advance». You can also choose whether the show should restart when the file changes.
 4. Click «Start file…» and choose a file (.pptx, .pptm, .ppt, .ppsx, .ppsm, .pps).
 5. Repeat for the other monitors.
+
+To synchronize shows, start the master presentation first. Before starting each follower, choose the master in «Synchronize with». Followers use manual advance and follow the master's current slide; the master controls the group. A follower can have fewer slides: when the master's slide number does not exist, it shows its first slide.
 
 The navigation, restart and stop buttons act on the shows selected in the list; when only one show is running, no selection is needed. After connecting a monitor, click «Refresh monitors».
 
@@ -142,7 +145,7 @@ It puts the DLL into `%LOCALAPPDATA%\Programs\Poliekran` and registers the `Poli
 
 This is an early version. Several full-screen shows on different monitors have been tested on the author's machine. Windowed mode is less reliable because PowerPoint resists resizing its own window.
 
-Planned: the same presentation in sync on several monitors, spanning a show across a video wall, a ticker on top of a show, and starting a set of shows automatically at Windows startup.
+Planned: spanning a show across a video wall, a ticker on top of a show, and starting a set of shows automatically at Windows startup.
 
 Bugs and ideas go to [Issues](../../issues). Pull requests are welcome.
 
@@ -169,6 +172,7 @@ Bugs and ideas go to [Issues](../../issues). Pull requests are welcome.
 ## Возможности
 
 - На каждом мониторе своя презентация. Один и тот же файл тоже можно запустить на нескольких экранах.
+- Синхронные показы: один запущенный показ можно назначить ведущим, а остальные — ведомыми. Это удобно, например, для одновременного показа разных языковых версий на отдельных мониторах.
 - Два режима: «Полный экран» (обычный полноэкранный показ) и «Окно» (оконный показ PowerPoint, растянутый на весь монитор без рамки).
 - Показ не закрывается и не сворачивается, когда фокус уходит в другое приложение.
 - Показ может идти по кругу. Слайды без собственного времени смены можно листать автоматически через 5–60 секунд, чтобы многостраничное расписание постоянно обновлялось.
@@ -203,6 +207,8 @@ Bugs and ideas go to [Issues](../../issues). Pull requests are welcome.
 3. Выберите, через сколько листать слайды без собственного времени смены. По умолчанию задано 15 секунд: это подходит для информационных экранов и расписаний. Для обычного доклада, где слайды листают вручную, выберите «не листать». Там же решите, нужно ли перезапускать показ после изменения файла.
 4. Нажмите «Запустить файл…» и укажите файл (.pptx, .pptm, .ppt, .ppsx, .ppsm, .pps).
 5. Повторите для остальных мониторов.
+
+Чтобы синхронизировать показы, сначала запустите ведущую презентацию. Перед запуском каждого ведомого выберите ведущий показ в поле «Синхронизировать с». Ведомые показы листаются вручную и следуют за текущим слайдом ведущего; ведущий управляет всей группой. Если у ведомой презентации меньше слайдов, при отсутствии номера ведущего она показывает первый слайд.
 
 Кнопки листания, перезапуска и остановки действуют на показы, выделенные в списке. Если запущен только один показ, выделять его не нужно. После подключения монитора нажмите «Обновить мониторы».
 
@@ -294,7 +300,7 @@ git push origin v1.2.3
 
 Ранняя версия. Несколько полноэкранных показов на разных мониторах работают на компьютере автора. Оконный режим менее надёжен, потому что PowerPoint сопротивляется изменению размера своего окна.
 
-Планы: синхронный показ одной презентации на нескольких мониторах, растягивание на видеостену, бегущая строка поверх показа, автоматический запуск набора показов при старте Windows.
+Планы: растягивание показа на видеостену, бегущая строка поверх показа, автоматический запуск набора показов при старте Windows.
 
 Ошибки и идеи — в [Issues](../../issues). Пул-реквесты приветствуются.
 
