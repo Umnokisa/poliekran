@@ -1,0 +1,71 @@
+# Build output
+bin/
+obj/
+out/
+dist/
+*.exe
+*.dll
+*.pdb
+*.zip
+
+# IDE
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+*.userprefs
+*.DotSettings.user
+
+# Secrets: code-signing certificates, keys, tokens, local configs
+*.pfx
+*.p12
+*.cer
+*.crt
+*.pem
+*.key
+*.snk
+*.spc
+*.pvk
+.env
+.env.*
+secrets.*
+*.secret
+*.secrets.json
+appsettings.*.local.json
+# Local NuGet configs may contain feed credentials
+NuGet.Config
+nuget.config
+
+# MSBuild binary logs may contain environment variables
+*.binlog
+
+# Publish profiles, packages
+*.pubxml
+*.publishsettings
+PublishProfiles/
+*.nupkg
+*.snupkg
+
+# SSH keys, keystores
+id_rsa*
+id_ed25519*
+*.ppk
+*.jks
+*.keystore
+
+# Office lock files and test presentations (they may contain work data)
+~$*
+*.ppt
+*.pptx
+*.pptm
+*.pps
+*.ppsx
+*.ppsm
+
+# Logs and OS junk
+*.log
+log.txt
+Thumbs.db
+Desktop.ini
+.DS_Store
