@@ -33,6 +33,8 @@ By itself, PowerPoint puts a full-screen show on one monitor and may close it wh
 
 The installer is not signed, so Windows SmartScreen may warn about an unknown publisher. Click More info → Run anyway to continue.
 
+The file `Poliekran-1.4.0-setup.exe` is a Windows installer, not a portable standalone EXE. It installs the PowerPoint COM add-in for the current user, registers it in the per-user registry and copies the user guide. It does not require administrator rights. Close PowerPoint before installing or updating.
+
 **Updating.** Run the new installer. It notices the existing copy and offers to update it.
 
 **Uninstalling.** Any of these works:
@@ -122,6 +124,12 @@ build.cmd 1.2.3
 
 The script builds `out\Poliekran.dll` and `dist\Poliekran-1.2.3-setup.exe`. The installer uses the guide PDFs already in `docs/`; after editing a guide, rebuild them with `docs/build-pdf.sh` (this requires pandoc and Chromium). Without an argument, the script takes `<Version>` from `src/Poliekran.csproj`. The version must contain three numbers. The project also opens in Visual Studio.
 
+### For people who want to modify the code
+
+The complete C# source code is included in the `src/` folder. You can change the add-in yourself—for example, adjust the control panel, show behavior or window handling—and build your own installer. The main implementation is in `src/ShowManager.cs`, the control panel is in `src/ControlForm.cs`, and the installer definition is in `installer/setup.nsi`.
+
+After making a change, run `build.cmd 1.4.0` on Windows. The compiled DLL is written to `out\Poliekran.dll`, and the installer is written to `dist\Poliekran-1.4.0-setup.exe`. Use a new three-part version number for a release that you distribute. The GitHub workflow in `.github/workflows/build.yml` performs the same build automatically for pushes, pull requests and version tags.
+
 ### On GitHub
 
 `.github/workflows/build.yml` builds the DLL and the installer on every push to `main`/`master`, on pull requests and on manual runs. The result is attached to the run as an artifact.
@@ -189,6 +197,8 @@ Bugs and ideas go to [Issues](../../issues). Pull requests are welcome.
 3. Откройте PowerPoint: на вкладке «Слайд-шоу» появится кнопка «Полиэкран».
 
 Установщик не подписан, поэтому Windows SmartScreen может предупредить о неизвестном издателе. Нажмите «Подробнее» → «Выполнить в любом случае».
+
+Файл `Poliekran-1.4.0-setup.exe` — это установщик Windows, а не переносимая самостоятельная программа. Он устанавливает COM-надстройку PowerPoint для текущего пользователя, регистрирует её в пользовательской части реестра и копирует инструкцию. Права администратора не нужны. Перед установкой или обновлением закройте PowerPoint.
 
 **Обновление.** Запустите новый установщик. Он увидит установленную версию и предложит её обновить.
 
@@ -276,6 +286,12 @@ build.cmd 1.2.3
 ```
 
 Скрипт соберёт `out\Poliekran.dll` и `dist\Poliekran-1.2.3-setup.exe`. PDF-инструкции установщик берёт из `docs/` готовыми; после правки инструкции пересоберите их скриптом `docs/build-pdf.sh` (нужны pandoc и Chromium). Без аргумента версия берётся из `<Version>` в `src/Poliekran.csproj`. Версия должна состоять из трёх чисел. Проект также открывается в Visual Studio.
+
+### Для тех, кто хочет доработать код
+
+Полный исходный код на C# находится в папке `src/`. Его можно менять самостоятельно: например, настроить панель управления, поведение показов или работу с окнами, а затем собрать собственный установщик. Основная логика находится в `src/ShowManager.cs`, панель управления — в `src/ControlForm.cs`, а описание установщика — в `installer/setup.nsi`.
+
+После изменений запустите в Windows `build.cmd 1.4.0`. Собранная DLL появится в `out\Poliekran.dll`, а установщик — в `dist\Poliekran-1.4.0-setup.exe`. Для распространяемого выпуска используйте новый номер версии из трёх чисел. Workflow в `.github/workflows/build.yml` выполняет ту же сборку автоматически при push, pull request и отправке тега версии.
 
 ### На GitHub
 
