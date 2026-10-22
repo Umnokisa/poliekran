@@ -31,13 +31,13 @@ jobs:
           if ($env:GITHUB_REF -like 'refs/tags/v*') {
             $v = $env:GITHUB_REF_NAME.Substring(1)
           } else {
-            $v = "$(([xml](Get-Content src/Poliekran.csproj)).Project.PropertyGroup.Version | Where-Object { $_ } | Select-Object -First 1)"
+            $v = "$(([xml](Get-Content 'For FUN (code)/src/Poliekran.csproj')).Project.PropertyGroup.Version | Where-Object { $_ } | Select-Object -First 1)"
           }
           if ($v -notmatch '^\d+\.\d+\.\d+$') { throw "Version must look like 1.2.3, got '$v'" }
           "version=$v" >> $env:GITHUB_OUTPUT
 
       - name: Build DLL
-        run: dotnet build src -c Release -o out -p:Version=${{ steps.ver.outputs.version }}
+        run: dotnet build 'For FUN (code)/src' -c Release -o 'For FUN (code)/out' -p:Version=${{ steps.ver.outputs.version }}
 
       - name: Install NSIS
         shell: pwsh
@@ -50,10 +50,10 @@ jobs:
       - name: Build installer
         shell: pwsh
         run: |
-          New-Item -ItemType Directory -Force dist | Out-Null
+          New-Item -ItemType Directory -Force 'For FUN (code)/dist' | Out-Null
           $m = (Get-Command makensis -ErrorAction SilentlyContinue).Source
           if (-not $m) { $m = "${env:ProgramFiles(x86)}\NSIS\makensis.exe" }
-          & $m /V2 "/DVER=${{ steps.ver.outputs.version }}" installer\setup.nsi
+          & $m /V2 "/DVER=${{ steps.ver.outputs.version }}" 'For FUN (code)\installer\setup.nsi'
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
       - name: Package source code
@@ -61,8 +61,16 @@ jobs:
         run: |
           $stage = Join-Path $env:GITHUB_WORKSPACE "dist\source\for funcode"
           New-Item -ItemType Directory -Force $stage | Out-Null
-          $items = @('src', 'installer', 'assets', 'docs', '.github', 'README.md', 'LICENSE', 'build.cmd')
+          $codeRoot = Join-Path $env:GITHUB_WORKSPACE 'For FUN (code)'
+          $items = @('src', 'installer', 'assets', 'build.cmd')
           foreach ($item in $items) {
+            $source = Join-Path $codeRoot $item
+            $target = Join-Path $stage $item
+            $parent = Split-Path $target -Parent
+            New-Item -ItemType Directory -Force $parent | Out-Null
+            Copy-Item -LiteralPath $source -Destination $target -Recurse -Force
+          }
+          foreach ($item in @('docs', '.github', 'README.md', 'LICENSE', '.gitattributes', '.gitignore', 'icon.png')) {
             $source = Join-Path $env:GITHUB_WORKSPACE $item
             $target = Join-Path $stage $item
             $parent = Split-Path $target -Parent
@@ -74,7 +82,7 @@ jobs:
         uses: actions/upload-artifact@v5
         with:
           name: Poliekran-${{ steps.ver.outputs.version }}-installer
-          path: dist/*.exe
+          path: For FUN (code)/dist/*.exe
 
       - name: Upload source artifact
         uses: actions/upload-artifact@v5

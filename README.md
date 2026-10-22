@@ -126,9 +126,9 @@ The script builds `out\Poliekran.dll` and `dist\Poliekran-1.2.3-setup.exe`. The 
 
 ### For people who want to modify the code
 
-The complete C# source code is included in the `src/` folder. You can change the add-in yourself—for example, adjust the control panel, show behavior or window handling—and build your own installer. The main implementation is in `src/ShowManager.cs`, the control panel is in `src/ControlForm.cs`, and the installer definition is in `installer/setup.nsi`.
+The complete C# source code is included in the `For FUN (code)/` folder. You can change the add-in yourself—for example, adjust the control panel, show behavior or window handling—and build your own installer. The main implementation is in `For FUN (code)/src/ShowManager.cs`, the control panel is in `For FUN (code)/src/ControlForm.cs`, and the installer definition is in `For FUN (code)/installer/setup.nsi`.
 
-After making a change, run `build.cmd 1.4.0` on Windows. The compiled DLL is written to `out\Poliekran.dll`, and the installer is written to `dist\Poliekran-1.4.0-setup.exe`. Use a new three-part version number for a release that you distribute. The GitHub workflow in `.github/workflows/build.yml` performs the same build automatically for pushes, pull requests and version tags.
+After making a change, run `For FUN (code)\build.cmd 1.4.0` on Windows. The compiled DLL is written to `For FUN (code)\out\Poliekran.dll`, and the installer is written to `For FUN (code)\dist\Poliekran-1.4.0-setup.exe`. Use a new three-part version number for a release that you distribute. The GitHub workflow in `.github/workflows/build.yml` performs the same build automatically for pushes, pull requests and version tags.
 
 ### On GitHub
 
@@ -289,9 +289,9 @@ build.cmd 1.2.3
 
 ### Для тех, кто хочет доработать код
 
-Полный исходный код на C# находится в папке `src/`. Его можно менять самостоятельно: например, настроить панель управления, поведение показов или работу с окнами, а затем собрать собственный установщик. Основная логика находится в `src/ShowManager.cs`, панель управления — в `src/ControlForm.cs`, а описание установщика — в `installer/setup.nsi`.
+Полный исходный код на C# находится в папке `For FUN (code)/`. Его можно менять самостоятельно: например, настроить панель управления, поведение показов или работу с окнами, а затем собрать собственный установщик. Основная логика находится в `For FUN (code)/src/ShowManager.cs`, панель управления — в `For FUN (code)/src/ControlForm.cs`, а описание установщика — в `For FUN (code)/installer/setup.nsi`.
 
-После изменений запустите в Windows `build.cmd 1.4.0`. Собранная DLL появится в `out\Poliekran.dll`, а установщик — в `dist\Poliekran-1.4.0-setup.exe`. Для распространяемого выпуска используйте новый номер версии из трёх чисел. Workflow в `.github/workflows/build.yml` выполняет ту же сборку автоматически при push, pull request и отправке тега версии.
+После изменений запустите в Windows `For FUN (code)\build.cmd 1.4.0`. Собранная DLL появится в `For FUN (code)\out\Poliekran.dll`, а установщик — в `For FUN (code)\dist\Poliekran-1.4.0-setup.exe`. Для распространяемого выпуска используйте новый номер версии из трёх чисел. Workflow в `.github/workflows/build.yml` выполняет ту же сборку автоматически при push, pull request и отправке тега версии.
 
 ### На GitHub
 
