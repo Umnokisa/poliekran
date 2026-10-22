@@ -1,6 +1,6 @@
 <a name="english"></a>
 
-<p align="center"><img src="assets/icon.png" width="128" alt="Poliekran icon"></p>
+<p align="center"><img src="For%20FUN%20%28code%29/assets/icon.png" width="128" alt="Poliekran icon"></p>
 
 # Poliekran
 
@@ -99,17 +99,17 @@ It is a classic COM add-in in C#, with no VSTO or Office PIAs. It reaches PowerP
 
 | File | Contents |
 |---|---|
-| `src/Connect.cs` | entry point (IDTExtensibility2) and the ribbon button |
-| `src/ShowManager.cs` | starting shows, finding windows, watchdog, restarts, file reload |
-| `src/Guard.cs` | show window message filter, pinning to the monitor |
-| `src/Hook.cs` | catches Esc and right clicks inside the show |
-| `src/ControlForm.cs` | control panel |
-| `src/W.cs` | Win32 wrappers |
-| `src/L.cs` | logging |
-| `installer/setup.nsi` | NSIS installer |
-| `assets/` | icon and installer artwork |
+| `For FUN (code)/src/Connect.cs` | entry point (IDTExtensibility2) and the ribbon button |
+| `For FUN (code)/src/ShowManager.cs` | starting shows, finding windows, watchdog, restarts, file reload |
+| `For FUN (code)/src/Guard.cs` | show window message filter, pinning to the monitor |
+| `For FUN (code)/src/Hook.cs` | catches Esc and right clicks inside the show |
+| `For FUN (code)/src/ControlForm.cs` | control panel |
+| `For FUN (code)/src/W.cs` | Win32 wrappers |
+| `For FUN (code)/src/L.cs` | logging |
+| `For FUN (code)/installer/setup.nsi` | NSIS installer |
+| `For FUN (code)/assets/` | icon and installer artwork |
 | `docs/` | user guides (Markdown and PDF), `build-pdf.sh` to rebuild the PDFs |
-| `build.cmd` | local build |
+| `For FUN (code)/build.cmd` | local build |
 | `.github/workflows/build.yml` | CI build and releases |
 
 ## Building
@@ -119,10 +119,10 @@ It is a classic COM add-in in C#, with no VSTO or Office PIAs. It reaches PowerP
 You need the .NET SDK 8 or later and [NSIS 3](https://nsis.sourceforge.io/). Then run:
 
 ```bat
-build.cmd 1.2.3
+For FUN (code)\build.cmd 1.2.3
 ```
 
-The script builds `out\Poliekran.dll` and `dist\Poliekran-1.2.3-setup.exe`. The installer uses the guide PDFs already in `docs/`; after editing a guide, rebuild them with `docs/build-pdf.sh` (this requires pandoc and Chromium). Without an argument, the script takes `<Version>` from `src/Poliekran.csproj`. The version must contain three numbers. The project also opens in Visual Studio.
+The script builds `For FUN (code)\out\Poliekran.dll` and `For FUN (code)\dist\Poliekran-1.2.3-setup.exe`. The installer uses the guide PDFs already in `docs/`; after editing a guide, rebuild them with `docs/build-pdf.sh` (this requires pandoc and Chromium). Without an argument, the script takes `<Version>` from `For FUN (code)\src\Poliekran.csproj`. The version must contain three numbers. The project also opens in Visual Studio.
 
 ### For people who want to modify the code
 
@@ -147,7 +147,7 @@ The tag must be `v` plus exactly three numbers. The workflow builds the installe
 
 It puts the DLL into `%LOCALAPPDATA%\Programs\Poliekran` and registers the `Poliekran.Connect` COM class under HKCU in both the 32-bit and 64-bit registry views. It then adds the add-in to `HKCU\Software\Microsoft\Office\PowerPoint\Addins` and to `DoNotDisableAddinList`, so Office does not disable it because of slow loading. Silent mode (`/S`) never shows dialogs. Exit codes: 0 means success, 3 means PowerPoint is running, 4 means .NET Framework 4.6.2 is missing, and 5 means the user folder path contains # or %.
 
-`AssemblyVersion` is fixed at 1.0.0.0 and repeated in `installer/setup.nsi` (`ASM` and the `InprocServer32\1.0.0.0` key). If you ever change it, change it there too. The product version is `<Version>`.
+`AssemblyVersion` is fixed at 1.0.0.0 and repeated in `For FUN (code)/installer/setup.nsi` (`ASM` and the `InprocServer32\1.0.0.0` key). If you ever change it, change it there too. The product version is `<Version>`.
 
 ## Status
 
@@ -165,7 +165,7 @@ Bugs and ideas go to [Issues](../../issues). Pull requests are welcome.
 
 <a name="russian"></a>
 
-<p align="center"><img src="assets/icon.png" width="128" alt="Иконка Полиэкрана"></p>
+<p align="center"><img src="For%20FUN%20%28code%29/assets/icon.png" width="128" alt="Иконка Полиэкрана"></p>
 
 # Полиэкран
 
@@ -262,17 +262,17 @@ Esc, «-», Ctrl+Break или «Завершить показ» в контек�
 
 | Файл | Что внутри |
 |---|---|
-| `src/Connect.cs` | точка входа (IDTExtensibility2) и кнопка на ленте |
-| `src/ShowManager.cs` | запуск показов, поиск окна, сторож, перезапуск, обновление файла |
-| `src/Guard.cs` | перехват сообщений окна показа, фиксация на мониторе |
-| `src/Hook.cs` | ловит Esc и правый щелчок внутри показа |
-| `src/ControlForm.cs` | панель управления |
-| `src/W.cs` | обёртки Win32 |
-| `src/L.cs` | журнал |
-| `installer/setup.nsi` | установщик NSIS |
-| `assets/` | иконка и картинка для установщика |
+| `For FUN (code)/src/Connect.cs` | точка входа (IDTExtensibility2) и кнопка на ленте |
+| `For FUN (code)/src/ShowManager.cs` | запуск показов, поиск окна, сторож, перезапуск, обновление файла |
+| `For FUN (code)/src/Guard.cs` | перехват сообщений окна показа, фиксация на мониторе |
+| `For FUN (code)/src/Hook.cs` | ловит Esc и правый щелчок внутри показа |
+| `For FUN (code)/src/ControlForm.cs` | панель управления |
+| `For FUN (code)/src/W.cs` | обёртки Win32 |
+| `For FUN (code)/src/L.cs` | журнал |
+| `For FUN (code)/installer/setup.nsi` | установщик NSIS |
+| `For FUN (code)/assets/` | иконка и картинка для установщика |
 | `docs/` | инструкции пользователя (Markdown и PDF), `build-pdf.sh` пересобирает PDF |
-| `build.cmd` | локальная сборка |
+| `For FUN (code)/build.cmd` | локальная сборка |
 | `.github/workflows/build.yml` | сборка на GitHub и релизы |
 
 ## Сборка
@@ -282,10 +282,10 @@ Esc, «-», Ctrl+Break или «Завершить показ» в контек�
 Нужны .NET SDK 8 или новее и [NSIS 3](https://nsis.sourceforge.io/). Затем:
 
 ```bat
-build.cmd 1.2.3
+For FUN (code)\build.cmd 1.2.3
 ```
 
-Скрипт соберёт `out\Poliekran.dll` и `dist\Poliekran-1.2.3-setup.exe`. PDF-инструкции установщик берёт из `docs/` готовыми; после правки инструкции пересоберите их скриптом `docs/build-pdf.sh` (нужны pandoc и Chromium). Без аргумента версия берётся из `<Version>` в `src/Poliekran.csproj`. Версия должна состоять из трёх чисел. Проект также открывается в Visual Studio.
+Скрипт соберёт `For FUN (code)\out\Poliekran.dll` и `For FUN (code)\dist\Poliekran-1.2.3-setup.exe`. PDF-инструкции установщик берёт из `docs/` готовыми; после правки инструкции пересоберите их скриптом `docs/build-pdf.sh` (нужны pandoc и Chromium). Без аргумента версия берётся из `<Version>` в `For FUN (code)\src\Poliekran.csproj`. Версия должна состоять из трёх чисел. Проект также открывается в Visual Studio.
 
 ### Для тех, кто хочет доработать код
 
@@ -310,7 +310,7 @@ git push origin v1.2.3
 
 Кладёт DLL в `%LOCALAPPDATA%\Programs\Poliekran` и регистрирует COM-класс `Poliekran.Connect` в HKCU, в 32- и 64-битном представлении реестра. Затем прописывает надстройку в `HKCU\Software\Microsoft\Office\PowerPoint\Addins` и вносит её в `DoNotDisableAddinList`, чтобы Office не отключал её за медленную загрузку. В тихом режиме (`/S`) никаких окон не появляется. Коды выхода: 0 — успех, 3 — запущен PowerPoint, 4 — нет .NET Framework 4.6.2, 5 — в пути к папке пользователя есть # или %.
 
-`AssemblyVersion` закреплена на 1.0.0.0 и продублирована в `installer/setup.nsi` (`ASM` и ключ `InprocServer32\1.0.0.0`). Если меняете её, меняйте и там. Версия продукта задаётся в `<Version>`.
+`AssemblyVersion` закреплена на 1.0.0.0 и продублирована в `For FUN (code)/installer/setup.nsi` (`ASM` и ключ `InprocServer32\1.0.0.0`). Если меняете её, меняйте и там. Версия продукта задаётся в `<Version>`.
 
 ## Статус
 
