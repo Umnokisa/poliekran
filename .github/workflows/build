@@ -56,12 +56,31 @@ jobs:
           & $m /V2 "/DVER=${{ steps.ver.outputs.version }}" installer\setup.nsi
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
-      - uses: actions/upload-artifact@v5
+      - name: Package source code
+        shell: pwsh
+        run: |
+          $stage = Join-Path $env:GITHUB_WORKSPACE "dist\source\for funcode"
+          New-Item -ItemType Directory -Force $stage | Out-Null
+          $items = @('src', 'installer', 'assets', 'docs', '.github', 'README.md', 'LICENSE', 'build.cmd')
+          foreach ($item in $items) {
+            $source = Join-Path $env:GITHUB_WORKSPACE $item
+            $target = Join-Path $stage $item
+            $parent = Split-Path $target -Parent
+            New-Item -ItemType Directory -Force $parent | Out-Null
+            Copy-Item -LiteralPath $source -Destination $target -Recurse -Force
+          }
+
+      - name: Upload installer artifact
+        uses: actions/upload-artifact@v5
         with:
-          name: Poliekran-${{ steps.ver.outputs.version }}
-          path: |
-            dist/*.exe
-            out/Poliekran.dll
+          name: Poliekran-${{ steps.ver.outputs.version }}-installer
+          path: dist/*.exe
+
+      - name: Upload source artifact
+        uses: actions/upload-artifact@v5
+        with:
+          name: Poliekran-${{ steps.ver.outputs.version }}-source
+          path: dist/source
 
   release:
     needs: build
@@ -72,10 +91,10 @@ jobs:
     steps:
       - uses: actions/download-artifact@v5
         with:
-          name: Poliekran-${{ needs.build.outputs.version }}
+          name: Poliekran-${{ needs.build.outputs.version }}-installer
           path: art
 
       - uses: softprops/action-gh-release@v2
         with:
-          files: art/dist/*.exe
+          files: art/*.exe
           generate_release_notes: true

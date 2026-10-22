@@ -132,7 +132,7 @@ After making a change, run `build.cmd 1.4.0` on Windows. The compiled DLL is wri
 
 ### On GitHub
 
-`.github/workflows/build.yml` builds the DLL and the installer on every push to `main`/`master`, on pull requests and on manual runs. The result is attached to the run as an artifact.
+`.github/workflows/build.yml` builds the DLL and the installer on every push to `main`/`master`, on pull requests and on manual runs. Each run provides two separate artifacts: a Windows installer EXE and a source-code artifact with the folder tree and build files shown separately.
 
 To publish a release, push a tag:
 
@@ -141,7 +141,7 @@ git tag v1.2.3
 git push origin v1.2.3
 ```
 
-The tag must be `v` plus exactly three numbers. The workflow builds the installer for that version and attaches it to a new GitHub release with generated notes.
+The tag must be `v` plus exactly three numbers. The workflow builds the installer for that version and attaches only the EXE installer to a new GitHub release with generated notes. The source-code folder tree remains available in the workflow artifacts under `for funcode`.
 
 ### What the installer does
 
@@ -295,7 +295,7 @@ build.cmd 1.2.3
 
 ### На GitHub
 
-`.github/workflows/build.yml` собирает DLL и установщик при пуше в `main`/`master`, на пул-реквестах и при ручном запуске. Результат прикрепляется к запуску как артефакт.
+`.github/workflows/build.yml` собирает DLL и установщик при push в `main`/`master`, на pull request и при ручном запуске. Каждый запуск даёт два отдельных артефакта: установщик EXE для Windows и артефакт с исходным кодом, где дерево папок и файлы сборки видны отдельно.
 
 Чтобы выпустить релиз, отправьте тег:
 
@@ -304,7 +304,7 @@ git tag v1.2.3
 git push origin v1.2.3
 ```
 
-Тег должен состоять из `v` и ровно трёх чисел. Workflow соберёт установщик этой версии и прикрепит его к новому релизу на GitHub вместе с автоматически собранными заметками.
+Тег должен состоять из `v` и ровно трёх чисел. Workflow соберёт установщик этой версии и прикрепит только EXE к новому релизу на GitHub вместе с автоматически собранными заметками. Дерево исходного кода останется доступно среди артефактов запуска workflow в папке `for funcode`.
 
 ### Что делает установщик
 
